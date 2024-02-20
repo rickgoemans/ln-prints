@@ -1,0 +1,57 @@
+@import 'defaults';
+
+// Custom
+.page-content {
+    flex: 1 0 auto;
+}
+
+.sticky-footer {
+    flex-shrink: inherit;
+}
+
+header {
+    height: 50vh;
+    min-height: 400px;
+    background-size: cover;
+}
+
+nav {
+    background: rgba(0, 0, 0, 0.75);
+
+    .nav-item {
+        &:hover, &.active {
+            .nav-link {
+                color: red !important;
+            }
+        }
+
+        .nav-link {
+            font-size: 1.5em;
+        }
+    }
+}
+
+.btn-custom {
+    color: #fff;
+    background-color: #000;
+    border-color: #000;
+
+    &:hover {
+        color: red;
+    }
+}
+
+.btn-fb {
+    color: #fff !important;
+    background-color: #3b5998 !important;
+}
+
+.btn-ins {
+    color: #fff !important;
+    background-color: #2e5e86 !important;
+}
+
+.btn-li {
+    color: #fff !important;
+    background-color: #0082ca !important;
+}

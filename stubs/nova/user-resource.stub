@@ -1,0 +1,146 @@
+<?php
+
+namespace App\Nova;
+
+use App\Models\User as UserModel;
+use Eminiarts\Tabs\Tabs;
+use Illuminate\Http\Request;
+use KABBOUCHI\NovaImpersonate\Impersonate;
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\Gravatar;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\MorphMany;
+use Laravel\Nova\Fields\MorphToMany;
+use Laravel\Nova\Fields\Password;
+use Laravel\Nova\Fields\Text;
+use Maatwebsite\Excel\Excel;
+use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
+
+/**
+ * Class User
+ *
+ * @package App\Nova
+ * @author RIck Goemans <rickgoemans@gmail.com>
+ */
+class User extends Resource
+{
+    public static $model = UserModel::class;
+
+    /**
+     * @inheritdoc
+     */
+    public static $search = [
+        'id',
+        'name',
+        'email',
+    ];
+
+    public static array $searchRelations = [
+        'roles'       => [
+            'name',
+        ],
+        'permissions' => [
+            'name',
+        ],
+    ];
+
+    /**
+     * @inheritdoc
+     */
+    public static $with = [
+        'roles',
+    ];
+
+    /**
+     * @inheritdoc
+     */
+    public static function group(): string
+    {
+        return __('nova-permission-tool::navigation.sidebar-label');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function subtitle(): string
+    {
+        $subTitle = __('Roles') . ":";
+
+        if ($this->roles()->count()) {
+            $subTitle = "{$subTitle} " . $this->roles->pluck('name')->implode(', ');
+        } else {
+            $subTitle = "{$subTitle} -";
+        }
+
+        return $subTitle;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function fields(Request $request): array
+    {
+        return [
+            ID::make(__('ID'), 'id')
+                ->sortable(),
+
+            Gravatar::make(),
+
+            Text::make(__('Name'), 'name')
+                ->rules('required', 'string')
+                ->creationRules('unique:users,name')
+                ->updateRules('unique:users,name,{{resourceId}}'),
+
+            Password::make(__('Password'), 'password')
+                ->onlyOnForms()
+                ->creationRules('nullable', 'string', 'min:6', 'password_format')
+                ->updateRules('nullable', 'string', 'min:6', 'password_format'),
+
+            Text::make(__('Email'), 'email')
+                ->sortable()
+                ->rules('required', 'email', 'max:255')
+                ->creationRules('unique:users,email')
+                ->updateRules('unique:users,email,{{resourceId}}')
+                ->displayUsing(fn($email) => "<a href='mailto:{$email}'>{$email}</a>")
+                ->asHtml(),
+
+            dateTimeField(__('Email verified at'), 'email_verified_at')
+                ->onlyOnDetail(),
+
+            dateTimeField(__('Created at'), 'created_at')
+                ->onlyOnDetail(),
+
+            (new Tabs(__('Relations'), [
+                MorphToMany::make('Roles', 'roles', Role::class)
+                     ->searchable()
+                     ->withSubtitles(),
+                 MorphToMany::make('Permissions', 'permissions', Permission::class)
+                     ->searchable()
+                     ->withSubtitles(),
+                MorphMany::make(__('Activities'), 'activities', Activity::class),
+            ]))
+                ->defaultSearch()
+                ->withToolbar(),
+
+            Impersonate::make($this)
+                ->withMeta([
+                    'redirect_to' => config('nova.path'),
+                ]),
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function actions(Request $request): array
+    {
+        return [
+            (new DownloadExcel)
+                ->withWriterType(Excel::CSV)
+                ->withHeadings()
+                ->allFields(),
+        ];
+    }
+}
+
+

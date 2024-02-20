@@ -1,0 +1,30 @@
+<?php
+
+namespace Database\Factories;
+
+use {{ namespacedModel }};
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * Class {{ class }}
+ *
+ * @package {{ namespace }}
+ * @author Rick Goemans <rickgoemans@gmail.com>
+ */
+class {{ model }}Factory extends Factory
+{
+    /**
+     * @inheritdoc
+     */
+    protected $model = {{ model }}::class;
+
+    /**
+     * @inheritdoc
+     */
+    public function definition(): array
+    {
+        return [
+            //
+        ];
+    }
+}

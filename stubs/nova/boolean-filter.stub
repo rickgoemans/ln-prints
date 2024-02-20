@@ -1,0 +1,31 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Http\Request;
+use Laravel\Nova\Filters\BooleanFilter;
+
+/**
+ * Class {{ class }}
+ *
+ * @package {{ namespace }}
+ * @author RIck Goemans <rickgoemans@gmail.com>
+ */
+class {{ class }} extends BooleanFilter
+{
+    /**
+     * @inheritdoc
+     */
+    public function apply(Request $request, $query, $value)
+    {
+        return $query;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function options(Request $request): array
+    {
+        return [];
+    }
+}

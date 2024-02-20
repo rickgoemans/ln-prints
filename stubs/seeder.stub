@@ -1,0 +1,19 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+
+/**
+ * Class {{ class }}
+ *
+ * @package Database\Seeders
+ * @author Rick Goemans <rickgoemans@gmail.com>
+ */
+class {{ class }} extends Seeder
+{
+    public function run()
+    {
+        //
+    }
+}

@@ -1,0 +1,104 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use {{ namespacedUserModel }};
+use Illuminate\Auth\Access\HandlesAuthorization;
+
+/**
+ * Class {{ class }}
+ *
+ * @package {{ namespace }}
+ * @author Rick Goemans <rickgoemans@gmail.com>
+ */
+class {{ class }}
+{
+    use HandlesAuthorization;
+
+    /**
+     * Determine whether the user can view any {{ modelVariable }}s.
+     *
+     * @param  \{{ namespacedUserModel }}  $user
+     * @return mixed
+     */
+    public function viewAny({{ user }} $user)
+    {
+        return $user->can('View {{ modelVariable }}s');
+    }
+
+    /**
+     * Determine whether the user can view the {{ modelVariable }}.
+     *
+     * @param  \{{ namespacedUserModel }}|null  $user
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return mixed
+     */
+    public function view(?{{ user }} $user, {{ model }} ${{ modelVariable }})
+    {
+        if ($user === null) {
+            return false;
+        }
+
+        return $user->can('View {{ modelVariable }}s');
+    }
+
+    /**
+     * Determine whether the user can create {{ modelVariable }}s.
+     *
+     * @param  \{{ namespacedUserModel }}  $user
+     * @return mixed
+     */
+    public function create({{ user }} $user)
+    {
+        return $user->can('Create {{ modelVariable }}s');
+    }
+
+    /**
+     * Determine whether the user can update the {{ modelVariable }}.
+     *
+     * @param  \{{ namespacedUserModel }}  $user
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return mixed
+     */
+    public function update({{ user }} $user, {{ model }} ${{ modelVariable }})
+    {
+        return $user->can('Update {{ modelVariable }}s');
+    }
+
+    /**
+     * Determine whether the user can delete the {{ modelVariable }}.
+     *
+     * @param  \{{ namespacedUserModel }}  $user
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return mixed
+     */
+    public function delete({{ user }} $user, {{ model }} ${{ modelVariable }})
+    {
+        return $user->can('Delete {{ modelVariable }}s');
+    }
+
+    /**
+     * Determine whether the user can restore the {{ modelVariable }}.
+     *
+     * @param  \{{ namespacedUserModel }}  $user
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return mixed
+     */
+    public function restore({{ user }} $user, {{ model }} ${{ modelVariable }})
+    {
+        return $user->can('Restore {{ modelVariable }}s');
+    }
+
+    /**
+     * Determine whether the user can permanently delete the {{ modelVariable }}.
+     *
+     * @param  \{{ namespacedUserModel }}  $user
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return mixed
+     */
+    public function forceDelete({{ user }} $user, {{ model }} ${{ modelVariable }})
+    {
+        return $user->can('Force delete {{ modelVariable }}s');
+    }
+}

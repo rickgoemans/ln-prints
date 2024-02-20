@@ -1,0 +1,24 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+@font-face {
+    font-family: 'Hiragino';
+    src: url('/fonts/Hiragino/HiraginoSansGB.woff2') format('woff2'),
+    url('/fonts/Hiragino/HiraginoSansGB-W3.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Font awesome
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+
+// Lightbox Gallery
+@import '~lightgallery/scss/lightgallery-bundle';
+@import '~lightgallery/scss/lg-transitions';

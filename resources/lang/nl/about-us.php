@@ -1,0 +1,5 @@
+<?php
+
+return [
+    'intro' => 'Werken waar je passie ligt is toch het mooiste wat je kunt doen!<br>Een rol witte stof wordt in de machine gehangen en dan begint de magie. Aan de voorkant komt er iedere print uit die je maar wil hebben: fotografisch of schilderachtig, in 1 kleur of in duizenden kleuren, groot of klein, het maakt niets uit het kan allemaal!<br>Gaande weg het proces wordt de stof alleen maar mooier. De kleuren hechten zich aan de stof en de vezel keert terug naar zijn originele, optimale vorm. En voila! Een nieuw idee is verwezenlijkt op stof. Gereed om verwerkt te worden in kleding, om een stoel te bekleden of een kostuum te maken om eindeloos in te dansen. Na 20 jaar in deze branch word ik daar nog steeds vrolijk van.<br>Laat me jou ook blij maken!<br><br>De service van LN Prints gaat veel verder dan alleen het leveren van geprinte stof.<br>In het hele proces van ontwerp tot eindproduct kunnen we met je meedenken en adviseren.<br>Laten we samen een mooi product maken!<br><br>Ellen Sesink',
+];

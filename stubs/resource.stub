@@ -1,0 +1,25 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ rootNamespace }}Models\{{ class }} as {{ class }}Model;
+
+/**
+  * Class {{ class }}
+  *
+  * @package {{ namespace }}
+  * @author Rick Goemans <rickgoemans@gmail.com>
+  * @mixin \{{ rootNamespace }}Models\{{ class }}
+  */
+class {{ class }} extends JsonResource
+{
+    /**
+     * @inheritdoc
+     */
+    public function toArray($request): array
+    {
+        return array_merge($this->baseToArray({{ class }}Model::class), [
+
+        ]);
+    }
+}

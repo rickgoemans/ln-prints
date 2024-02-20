@@ -1,0 +1,39 @@
+<?php
+
+namespace {{ namespace }};
+
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Metrics\Partition;
+
+/**
+ * Class {{ class }}
+ *
+ * @package {{ namespace }}
+ * @author RIck Goemans <rickgoemans@gmail.com>
+ */
+class {{ class }} extends Partition
+{
+    /**
+     * @inheritdoc
+     */
+    public function calculate(NovaRequest $request)
+    {
+        return $this->count($request, Model::class, 'groupByColumn');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function cacheFor()
+    {
+        // return now()->addMinutes(5);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function uriKey(): string
+    {
+        return 'uri-key';
+    }
+}

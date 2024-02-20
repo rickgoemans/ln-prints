@@ -1,0 +1,51 @@
+<?php
+
+namespace {{ namespace }};
+
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Metrics\Trend;
+
+/**
+ * Class {{ class }}
+ *
+ * @package {{ namespace }}
+ * @author RIck Goemans <rickgoemans@gmail.com>
+ */
+class {{ class }} extends Trend
+{
+    /**
+     * @inheritdoc
+     */
+    public function calculate(NovaRequest $request)
+    {
+        return $this->countByDays($request, Model::class);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function ranges(): array
+    {
+        return [
+            30 => __('30 Days'),
+            60 => __('60 Days'),
+            90 => __('90 Days'),
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function cacheFor()
+    {
+        // return now()->addMinutes(5);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function uriKey(): string
+    {
+        return 'uri-key';
+    }
+}

@@ -1,0 +1,324 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use {{ rootNamespace }}Http\Controllers\Controller;
+use {{ rootNamespace }}Http\Requests\API\Create{{ model }}Request;
+use {{ rootNamespace }}Http\Requests\API\Delete{{ model }}Request;
+use {{ rootNamespace }}Http\Requests\API\Update{{ model }}Request;
+use {{ rootNamespace }}Http\Resources\{{ model }} as {{ model }}Resource;
+use {{ rootNamespace }}Http\Resources\{{ model }}Collection;
+use Exception;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+/**
+ * Class {{ class }}
+ *
+ * @package {{ namespace }}
+ * @author Rick Goemans <rickgoemans@gmail.com>
+ */
+class {{ class }} extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @OA\GET(
+     *     path="/api/{{ modelVariable }}s",
+     *     tags={"{{ modelVariable }}s"},
+     *     summary="Returns a paginated response of all {{ modelVariable }}s",
+     *     description="Returns a paginated response of all {{ modelVariable }}s",
+     *     operationId="get{{ model }}s",
+     *     @OA\Parameter(
+     *         name="page",
+     *         description="Page number",
+     *         required=false,
+     *         in="path",
+     *         @OA\Schema(
+     *             type="integer"
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="{{ model }}s successfully retrieved",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="data",
+     *                 description="The data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/{{ model }}"),
+     *             ),
+     *             @OA\Property(
+     *                 property="links",
+     *                 type="object",
+     *                 ref="#/components/schemas/PaginationLinks",
+     *             ),
+     *             @OA\Property(
+     *                 property="meta",
+     *                 type="object",
+     *                 ref="#/components/schemas/PaginationMeta",
+     *             ),
+     *         ),
+     *     ),
+     * )
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index(Request $request): JsonResponse
+    {
+        ${{ modelVariable }}s = {{ model }}::paginate(20);
+
+        return (new {{ model }}Collection(${{ modelVariable }}s))
+            ->response();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @OA\POST(
+     *     path="/api/{{ modelVariable }}s",
+     *     tags={"{{ modelVariable }}s"},
+     *     summary="Create a {{ modelVariable }}",
+     *     description="Create a {{ modelVariable }}",
+     *     operationId="create{{ model }}",
+     *     requestBody={"$ref": "#/components/requestBodies/{{ model }}"},
+     *     @OA\Response(
+     *         response="201",
+     *         description="{{ model }} created successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="data",
+     *                 description="The data",
+     *                 ref="#/components/schemas/{{ model }}",
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="403",
+     *         description="Unauthorized or errors",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="message",
+     *                 description="The message",
+     *                 type="string",
+     *             ),
+     *             @OA\Property(
+     *                 property="errors",
+     *                 description="The object containing all errors",
+     *                 type="object",
+     *             ),
+     *         ),
+     *     ),
+     * )
+     *
+     * @param  \{{ rootNamespace }}Http\Requests\Api\Create{{ model }}Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(Create{{ model }}Request $request): JsonResponse
+    {
+        /** @var {{ model }} ${{ modelVariable }} */
+        ${{ modelVariable }} = {{ model }}::create($request->validated());
+
+        if (!${{ modelVariable }}) {
+            return response()->json([
+                'error' => __('Failed to create {{ modelVariable }}.'),
+            ], 400);
+        }
+
+        return (new {{ model }}Resource(${{ modelVariable }}))
+            ->response();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @OA\GET(
+     *     path="/api/{{ modelVariable }}s/{{{ modelVariable }}Id}",
+     *     tags={"{{ modelVariable }}s"},
+     *     summary="Get a {{ modelVariable }}",
+     *     description="Get a {{ modelVariable }}",
+     *     operationId="get{{ model }}",
+     *     @OA\Parameter(
+     *         name="{{ modelVariable }}Id",
+     *         in="path",
+     *         description="ID of {{ modelVariable }} to show",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="{{ model }} retrieved successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="data",
+     *                 description="The data",
+     *                 ref="#/components/schemas/{{ model }}",
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="404",
+     *         description="{{ model }} not found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="message",
+     *                 description="The message",
+     *                 type="string",
+     *                 default="No query results for [App\{{ model }}] ID",
+     *             ),
+     *         ),
+     *     ),
+     * )
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(Request $request, {{ model }} ${{ modelVariable }}): JsonResponse
+    {
+        return (new {{ model }}Resource(${{ modelVariable }}))
+            ->response();
+    }
+
+    /**
+     * Update the specified resource in storage.
+     * @OA\PUT(
+     *     path="/api/{{ modelVariable }}s/{{{ modelVariable }}Id}",
+     *     tags={"{{ modelVariable }}s"},
+     *     summary="Update a {{ modelVariable }}",
+     *     description="Update a {{ modelVariable }}",
+     *     operationId="update{{ model }}",
+     *     requestBody={"$ref": "#/components/requestBodies/{{ model }}"},
+     *     @OA\Parameter(
+     *         name="{{ modelVariable }}Id",
+     *         in="path",
+     *         description="ID of {{ modelVariable }} to update",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="{{ model }} updated successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="data",
+     *                 description="The data",
+     *                 ref="#/components/schemas/{{ model }}",
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="403",
+     *         description="Unauthorized or errors",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="message",
+     *                 description="The message",
+     *                 type="string",
+     *             ),
+     *             @OA\Property(
+     *                 property="errors",
+     *                 description="The object containing all errors",
+     *                 type="object",
+     *             ),
+     *         ),
+     *     ),
+     * )
+     *
+     * @param  \{{ rootNamespace }}Http\Requests\Api\Update{{ model }}Request  $request
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Update{{ model }}Request $request, {{ model }} ${{ modelVariable }}): JsonResponse
+    {
+        $updated = ${{ modelVariable }}->update($request->validated());
+
+        if (!$updated) {
+            return response()->json([
+                'message' => __('Failed to update {{ modelVariable }}.'),
+            ], 400);
+        }
+
+        return (new {{ model }}Resource(${{ modelVariable }}))
+            ->response();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @OA\DELETE(
+     *     path="/api/{{ modelVariable }}s/{{{ modelVariable }}Id}",
+     *     tags={"{{ modelVariable }}s"},
+     *     summary="Delete a {{ modelVariable }}",
+     *     description="Delete a {{ modelVariable }}",
+     *     operationId="delete{{ model }}",
+     *     @OA\Parameter(
+     *         name="{{ modelVariable }}Id",
+     *         in="path",
+     *         description="ID of {{ modelVariable }} to delete",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="{{ model }} deleted successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="message",
+     *                 description="The message",
+     *                 type="string",
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="403",
+     *         description="Unauthorized or errors",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="message",
+     *                 description="The message",
+     *                 type="string",
+     *             ),
+     *             @OA\Property(
+     *                 property="errors",
+     *                 description="The object containing all errors",
+     *                 type="object",
+     *             ),
+     *         ),
+     *     ),
+     * )
+     *
+     * @param  \{{ rootNamespace }}Http\Requests\Api\Delete{{ model }}Request  $request
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function destroy(Delete{{ model }}Request $request, {{ model }} ${{ modelVariable }}): JsonResponse
+    {
+        ${{ modelVariable }}->delete();
+
+        return response()->json([
+            'message' => __('{{ model }} deleted successfully.'),
+        ]);
+    }
+}

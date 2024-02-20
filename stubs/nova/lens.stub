@@ -1,0 +1,79 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\LensRequest;
+use Laravel\Nova\Lenses\Lens;
+
+/**
+ * Class {{ class }}
+ *
+ * @package {{ namespace }}
+ * @author RIck Goemans <rickgoemans@gmail.com>
+ */
+class {{ class }} extends Lens
+{
+    /**
+     * @inheritdoc
+     */
+    public function name(): string
+    {
+        return __('{{ class }}');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function query(LensRequest $request, $query)
+    {
+        return $request->withOrdering($request->withFilters(
+            $query
+        ));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function fields(Request $request): array
+    {
+        return [
+            ID::make(__('ID'), 'id')
+                ->sortable(),
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function actions(Request $request): array
+    {
+        return parent::actions($request);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function cards(Request $request): array
+    {
+        return $request->newResource()->cards($request);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function filters(Request $request): array
+    {
+        return $request->newResource()->filters($request);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function uriKey(): string
+    {
+        return 'uri-key';
+    }
+}

@@ -1,0 +1,26 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Foundation\Http\FormRequest;
+
+/**
+ * Class {{ class }}
+ *
+ * @package {{ namespace }}
+ * @author Rick Goemans <rickgoemans@gmail.com>
+ */
+class {{ class }} extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return false;
+    }
+
+    public function rules(): array
+    {
+        return [
+            //
+        ];
+    }
+}

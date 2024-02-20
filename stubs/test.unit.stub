@@ -1,0 +1,24 @@
+<?php
+
+namespace {{ namespace }};
+
+use PHPUnit\Framework\TestCase;
+
+/**
+ * Class {{ class }}
+ *
+ * @package {{ namespace }}
+ * @author Rick Goemans <rickgoemans@gmail.com>
+ */
+class {{ class }} extends TestCase
+{
+    /**
+     * A basic unit test example.
+     *
+     * @return void
+     */
+    public function testExample()
+    {
+        $this->assertTrue(true);
+    }
+}

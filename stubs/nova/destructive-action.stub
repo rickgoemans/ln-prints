@@ -1,0 +1,38 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
+use Laravel\Nova\Actions\DestructiveAction;
+use Laravel\Nova\Fields\ActionFields;
+
+/**
+ * Class {{ class }}
+ *
+ * @package {{ namespace }}
+ * @author RIck Goemans <rickgoemans@gmail.com>
+ */
+class {{ class }} extends DestructiveAction
+{
+    use InteractsWithQueue, Queueable, SerializesModels;
+
+    /**
+     * @inheritdoc
+     */
+    public function handle(ActionFields $fields, Collection $models)
+    {
+        //
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function fields(): array
+    {
+        return [];
+    }
+}

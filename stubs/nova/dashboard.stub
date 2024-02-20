@@ -1,0 +1,32 @@
+<?php
+
+namespace {{ namespace }};
+
+use Laravel\Nova\Dashboard;
+
+/**
+ * Class {{ class }}
+ *
+ * @package {{ namespace }}
+ * @author RIck Goemans <rickgoemans@gmail.com>
+ */
+class {{ class }} extends Dashboard
+{
+    /**
+     * @inheritdoc
+     */
+    public function cards(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function uriKey(): string
+    {
+        return 'uri-key';
+    }
+}

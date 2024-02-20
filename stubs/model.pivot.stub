@@ -1,0 +1,36 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+/**
+ * Class {{ class }}
+ *
+ * @package {{ namespace }}
+ * @author Rick Goemans <rickgoemans@gmail.com>
+ */
+class {{ class }} extends Pivot
+{
+    /**
+     * @inheritdoc
+     */
+    protected $fillable = [
+    ];
+
+    public static $pivotColumns = [
+        'created_at',
+        'updated_at',
+    ];
+
+    /* RELATIONS */
+    public function (): BelongsTo
+    {
+        return $this->belongsTo(::class);
+    }
+
+    public function (): BelongsTo
+    {
+        return $this->belongsTo(::class);
+    }
+}

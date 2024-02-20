@@ -1,0 +1,54 @@
+# OS files
+.DS_Store
+
+# Environment
+.env
+.env.backup
+.env.testing
+.env.production
+
+# Dependency managers
+.npmrc
+/node_modules
+npm-debug.log
+yarn-error.log
+/vendor
+
+# IDEA
+/.idea
+
+# Testing
+.phpunit.result.cache
+
+# Vagrant
+/.vagrant
+VagrantFile
+
+# Public files
+/public/hot
+/public/storage
+
+# Storage
+/storage/*.key
+/storage/app/forms/signatures
+
+# Auth
+auth.json
+
+# Homestead
+Homestead.json
+Homestead.yaml
+
+# Vapor
+.vapor/
+
+# IDE helper
+_ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php
+
+# PHPStan
+phpstan.neon
+
+# Local compose (due to not having composer globally installed)
+composer.phar

@@ -1,0 +1,22 @@
+<?php
+
+namespace {{ namespace }};
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+/**
+ * Class {{ class }}
+ *
+ * @package {{ namespace }}
+ * @author Rick Goemans <rickgoemans@gmail.com>
+ */
+class {{ class }} extends Model
+{
+    use HasFactory;
+
+    /**
+     * @inheritdoc
+     */
+    protected $fillable = [
+        //
+    ];
+}
