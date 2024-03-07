@@ -36,7 +36,7 @@ if (!function_exists('encodeImage')) {
         $contents = FileFacade::get($path);
         $type = FileFacade::type($path);
 
-        return "data:image/${type};base64," . base64_encode($contents);
+        return "data:image/{$type};base64," . base64_encode($contents);
     }
 }
 
