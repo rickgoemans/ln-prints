@@ -1,12 +1,12 @@
 <?php
 
-use Spatie\Backup\Events\BackupHasFailed;
-use Spatie\Backup\Events\BackupWasSuccessful;
-use Spatie\Backup\Events\CleanupHasFailed;
-use Spatie\Backup\Events\CleanupWasSuccessful;
-use Spatie\Backup\Events\HealthyBackupWasFound;
-use Spatie\Backup\Events\UnhealthyBackupWasFound;
 use Spatie\Backup\Notifications\Notifiable;
+use Spatie\Backup\Notifications\Notifications\BackupHasFailedNotification;
+use Spatie\Backup\Notifications\Notifications\BackupWasSuccessfulNotification;
+use Spatie\Backup\Notifications\Notifications\CleanupHasFailedNotification;
+use Spatie\Backup\Notifications\Notifications\CleanupWasSuccessfulNotification;
+use Spatie\Backup\Notifications\Notifications\HealthyBackupWasFoundNotification;
+use Spatie\Backup\Notifications\Notifications\UnhealthyBackupWasFoundNotification;
 use Spatie\Backup\Tasks\Cleanup\Strategies\DefaultStrategy;
 use Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumAgeInDays;
 use Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumStorageInMegabytes;
@@ -29,7 +29,7 @@ return [
                  * The list of directories and files that will be included in the backup.
                  */
                 'include'                       => [
-                    storage_path('app'),
+                    base_path(),
                 ],
 
                 /*
@@ -38,6 +38,8 @@ return [
                  * Directories used by the backup process will automatically be excluded.
                  */
                 'exclude'                       => [
+                    base_path('vendor'),
+                    base_path('node_modules'),
                 ],
 
                 /*
@@ -94,7 +96,7 @@ return [
         ],
 
         /*
-         * The database dump can be compressed to decrease diskspace usage.
+         * The database dump can be compressed to decrease disk space usage.
          *
          * Out of the box Laravel-backup supplies
          * Spatie\DbDumper\Compressors\GzipCompressor::class.
@@ -160,12 +162,12 @@ return [
     'notifications'   => [
 
         'notifications' => [
-            BackupHasFailed::class         => ['mail'],
-            UnhealthyBackupWasFound::class => ['mail'],
-            CleanupHasFailed::class        => ['mail'],
-            BackupWasSuccessful::class     => [],
-            HealthyBackupWasFound::class   => [],
-            CleanupWasSuccessful::class    => [],
+            BackupHasFailedNotification::class         => ['mail'],
+            UnhealthyBackupWasFoundNotification::class => ['mail'],
+            CleanupHasFailedNotification::class        => ['mail'],
+            BackupWasSuccessfulNotification::class     => [],
+            HealthyBackupWasFoundNotification::class   => [],
+            CleanupWasSuccessfulNotification::class    => [],
         ],
 
         /*
@@ -200,9 +202,15 @@ return [
         'discord' => [
             'webhook_url' => '',
 
-            'username' => null,
+            /*
+             * If this is an empty string, the name field on the webhook will be used.
+             */
+            'username'    => '',
 
-            'avatar_url' => null,
+            /*
+             * If this is an empty string, the avatar on the webhook will be used.
+             */
+            'avatar_url'  => '',
         ],
     ],
 

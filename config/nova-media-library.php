@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'enable-existing-media' => false,
+    'enable-existing-media'  => false,
+    'hide-media-collections' => [],
 ];

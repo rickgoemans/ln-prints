@@ -11,7 +11,18 @@ return [
     |
     */
 
-    'filename'      => '_ide_helper.php',
+    'filename' => '_ide_helper.php',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Models filename
+    |--------------------------------------------------------------------------
+    |
+    | The default filename for the models helper file
+    |
+    */
+
+    'models_filename' => '_ide_helper_models.php',
 
     /*
     |--------------------------------------------------------------------------
@@ -23,7 +34,7 @@ return [
     | `.phpstorm.meta.php/laravel_ide_Helper.php'.
     |
     */
-    'meta_filename' => '.phpstorm.meta.php',
+    'meta_filename'   => '.phpstorm.meta.php',
 
     /*
     |--------------------------------------------------------------------------
@@ -112,7 +123,6 @@ return [
 
     'helper_files' => [
         base_path() . '/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
-        base_path() . '/App/Support/helpers.php',
     ],
 
     /*
@@ -129,7 +139,7 @@ return [
     */
 
     'model_locations' => [
-        'app/Models',
+        'app',
     ],
 
     /*
@@ -186,7 +196,7 @@ return [
     |
     */
 
-    'interfaces'                  => [
+    'interfaces'                       => [
 
     ],
 
@@ -207,7 +217,7 @@ return [
     | The value of the array is an array of type mappings. Key is the name of the custom type,
     | (for example, "jsonb" from Postgres 9.4) and the value is the name of the corresponding Doctrine2 type (in
     | our case it is 'json_array'. Doctrine types are listed here:
-    | http://doctrine-dbal.readthedocs.org/en/latest/reference/types.html
+    | https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html#types
     |
     | So to support jsonb in your models when working with Postgres, just add the following entry to the array below:
     |
@@ -216,7 +226,7 @@ return [
     |  ),
     |
     */
-    'custom_db_types'             => [
+    'custom_db_types'                  => [
 
     ],
 
@@ -244,7 +254,7 @@ return [
      | Note, it is currently an all-or-nothing option.
      |
      */
-    'model_camel_case_properties' => false,
+    'model_camel_case_properties'      => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -254,7 +264,7 @@ return [
     | Cast the given "real type" to the given "type".
     |
     */
-    'type_overrides'              => [
+    'type_overrides'                   => [
         'integer' => 'int',
         'boolean' => 'bool',
     ],
@@ -268,7 +278,7 @@ return [
     | magic methods and properties.
     |
     */
-    'include_class_docblocks'     => false,
+    'include_class_docblocks'          => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -280,7 +290,18 @@ return [
     | or there is an import (use className) of a given class
     |
     */
-    'force_fqn'                   => false,
+    'force_fqn'                        => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Use generics syntax
+    |--------------------------------------------------------------------------
+    |
+    | Use generics syntax within DocBlocks,
+    | e.g. `Collection<User>` instead of `Collection|User[]`.
+    |
+    */
+    'use_generics_annotations'         => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -292,7 +313,21 @@ return [
     | name of the Relationship, e.g. `'relationName' => RelationShipClass::class`.
     |
     */
-    'additional_relation_types'   => [],
+    'additional_relation_types'        => [],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Additional relation return types
+    |--------------------------------------------------------------------------
+    |
+    | When using custom relation types its possible for the class name to not contain
+    | the proper return type of the relation. The key of the array is the relationship
+    | method name. The value of the array is the return type of the relation ('many'
+    | or 'morphTo').
+    | e.g. `'relationName' => 'many'`.
+    |
+    */
+    'additional_relation_return_types' => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -302,7 +337,7 @@ return [
     | The specified commands should run after migrations are finished running.
     |
     */
-    'post_migrate'                => [
+    'post_migrate'                     => [
         // 'ide-helper:models --nowrite',
     ],
 

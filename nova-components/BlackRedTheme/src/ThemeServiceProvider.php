@@ -8,28 +8,20 @@ use Laravel\Nova\Nova;
 
 class ThemeServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
+    /** {@inerhitdoc} */
+    public function boot(): void
     {
         Nova::serving(function (ServingNova $event) {
             Nova::theme(asset('/lnprints/black-red-theme/theme.css'));
         });
 
         $this->publishes([
-            __DIR__.'/../resources/css' => public_path('lnprints/black-red-theme'),
+            __DIR__ . '/../resources/css' => public_path('lnprints/black-red-theme'),
         ], 'public');
     }
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
+    /** {@inerhitdoc} */
+    public function register(): void
     {
         //
     }

@@ -13,11 +13,9 @@ return [
             'titleBefore' => false, // Put defaults.title before page title, like 'It's Over 9000! - Dashboard'
             'description' => config('app.name'), // set false to total remove
             'separator'   => ' - ',
-            'keywords'    => [
-                config('app.name'),
-            ],
-            'canonical'   => null, // Set null for using Url::current(), set false to total remove
-            'robots'      => 'all', // Set to 'all', 'none' or any combination of index/noindex and follow/nofollow
+            'keywords'    => [],
+            'canonical'   => false, // Set to null or 'full' to use Url::full(), set to 'current' to use Url::current(), set false to total remove
+            'robots'      => false, // Set to 'all', 'none' or any combination of index/noindex and follow/nofollow
         ],
         /*
          * Webmaster tags are always added.
@@ -72,4 +70,3 @@ return [
         ],
     ],
 ];
-

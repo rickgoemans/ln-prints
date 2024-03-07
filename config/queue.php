@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Str;
-
 return [
 
     /*
@@ -67,7 +65,7 @@ return [
         'redis' => [
             'driver'       => 'redis',
             'connection'   => 'default',
-            'queue'        => env('REDIS_QUEUE', Str::slug(config('app.name'), '_') . '_' . config('app.env') . '_queue'),
+            'queue'        => env('REDIS_QUEUE', 'default'),
             'retry_after'  => 90,
             'block_for'    => null,
             'after_commit' => false,
