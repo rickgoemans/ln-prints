@@ -2,7 +2,7 @@
 
 namespace App\Support\Enums;
 
-class MediaCollections
+enum MediaCollections: string
 {
-    const IMAGES = 'images';
+    case Images = 'images';
 }

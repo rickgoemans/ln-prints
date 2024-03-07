@@ -11,29 +11,18 @@ use Laravel\Nova\Resource as NovaResource;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Titasgailius\SearchRelations\SearchesRelations;
 
-/**
- * Class Resource
- *
- * @package App\Nova
- * @property-read Model $resource
- */
+/** @property-read Model $resource */
 abstract class Resource extends NovaResource
 {
     use SearchesRelations;
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static $tableStyle = 'tight';
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static $showColumnBorders = true;
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static function label(): string
     {
         return __(Str::of(self::baseLabel())
@@ -41,28 +30,10 @@ abstract class Resource extends NovaResource
             ->__toString());
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static function singularLabel(): string
     {
         return __(self::baseLabel()->__toString());
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function title(): string
-    {
-        return $this->resource->title ?? '';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function subtitle(): string
-    {
-        return $this->resource->subtitle ?? '';
     }
 
     /**
@@ -110,22 +81,33 @@ abstract class Resource extends NovaResource
         return "/resources/{$viaResource}/{$viaResourceId}?tab={$tab}";
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function actions(Request $request): array
-    {
-        return array_merge(parent::actions($request), [
-            (new DownloadExcel)
-                ->withHeadings()
-                ->allFields(),
-        ]);
-    }
-
     private static function baseLabel(): Stringable
     {
         return Str::of(class_basename(get_called_class()))
             ->snake(' ')
             ->ucfirst();
+    }
+
+    /** {@inheritdoc} */
+    public function title(): string
+    {
+        return $this->resource->title ?? '';
+    }
+
+    /** {@inheritdoc} */
+    public function subtitle(): string
+    {
+        return $this->resource->subtitle ?? '';
+    }
+
+    /** {@inheritdoc} */
+    public function actions(Request $request): array
+    {
+        return [
+            ...parent::actions($request),
+            (new DownloadExcel)
+                ->withHeadings()
+                ->allFields(),
+        ];
     }
 }

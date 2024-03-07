@@ -5,12 +5,6 @@ namespace App\Support\Traits;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity as SpatieLogsActivity;
 
-/**
- * Trait LogsActivity
- *
- * @package App\Support\Traits
- * @author Rick Goemans <rickgoemans@gmail.com>
- */
 trait LogsActivity
 {
     use SpatieLogsActivity;

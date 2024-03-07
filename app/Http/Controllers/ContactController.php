@@ -10,12 +10,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
-/**
- * Class ContactController
- *
- * @package App\Http\Controllers
- * @author Rick Goemans <rickgoemans@gmail.com>
- */
 class ContactController extends Controller
 {
     use SEOToolsTrait;
@@ -25,7 +19,7 @@ class ContactController extends Controller
         $this->seo()->setTitle(__('Contact'));
 
         $subject = $request->input('subject', '');
-        
+
         return view('contact')
             ->with([
                 'subject' => $subject,

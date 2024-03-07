@@ -16,43 +16,30 @@ use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 
-/**
- * Class Fabric
- *
- * @package App\Nova
- * @property-read FabricModel $resource
- */
+/** @property-read FabricModel $resource */
 class Fabric extends Resource
 {
     public static $model = FabricModel::class;
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static $search = [
         'id',
         'article_number',
         'name',
     ];
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static $with = [
         'media',
     ];
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static function group(): string
     {
         return __('LN Prints');
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public function fields(Request $request): array
     {
         return [
@@ -134,7 +121,7 @@ class Fabric extends Resource
             Boolean::make(__('Active'), 'active')
                 ->rules('boolean'),
 
-            Images::make(__('Images'), MediaCollections::IMAGES)
+            Images::make(__('Images'), MediaCollections::Images->value)
                 ->singleImageRules([
                     'image',
                     Rule::dimensions()
@@ -143,7 +130,7 @@ class Fabric extends Resource
                         ->maxWidth(3840)
                         ->maxHeight(2160),
                 ])
-                ->conversionOnIndexView(MediaConversions::THUMBNAIL)
+                ->conversionOnIndexView(MediaConversions::Thumbnail->value)
                 ->fullSize()
                 ->rules('required'),
             (new Tabs(__('Relations'), [

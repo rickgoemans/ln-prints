@@ -11,22 +11,8 @@ use Spatie\Backup\Commands\CleanupCommand;
 
 class Kernel extends ConsoleKernel
 {
-    /**
-     * The Artisan commands provided by your application.
-     *
-     * @var array
-     */
-    protected $commands = [
-        //
-    ];
-
-    /**
-     * Define the application's command schedule.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
-     * @return void
-     */
-    protected function schedule(Schedule $schedule)
+    /** {@inheritdoc} */
+    protected function schedule(Schedule $schedule): void
     {
         /* TELESCOPE */
         $schedule->command(PruneCommand::class, [
@@ -46,12 +32,8 @@ class Kernel extends ConsoleKernel
             ->everyFiveMinutes();
     }
 
-    /**
-     * Register the commands for the application.
-     *
-     * @return void
-     */
-    protected function commands()
+    /** {@inheritdoc} */
+    protected function commands(): void
     {
         $this->load(__DIR__ . '/Commands');
 

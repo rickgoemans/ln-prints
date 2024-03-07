@@ -13,19 +13,12 @@ use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
 
-/**
- * Class User
- *
- * @package App\Nova
- * @property-read UserModel $resource
- */
+/** @property-read UserModel $resource */
 class User extends Resource
 {
     public static $model = UserModel::class;
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static $search = [
         'id',
         'name',
@@ -41,41 +34,31 @@ class User extends Resource
         ],
     ];
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static $with = [
         'roles',
         'permissions',
     ];
 
-    /**
-     * @inheritdoc
-     */
-    public function title(): string
-    {
-        return "{$this->resource->name}";
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function subtitle(): string
-    {
-        return "Role(s): " . implode(', ', $this->resource->roles->pluck('name')->toArray());
-    }
-
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static function group(): string
     {
         return __('nova-permission-tool::navigation.sidebar-label');
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
+    public function title(): string
+    {
+        return "{$this->resource->name}";
+    }
+
+    /** {@inheritdoc} */
+    public function subtitle(): string
+    {
+        return "Role(s): " . implode(', ', $this->resource->roles->pluck('name')->toArray());
+    }
+
+    /** {@inheritdoc} */
     public function fields(Request $request)
     {
         return [

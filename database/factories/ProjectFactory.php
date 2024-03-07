@@ -7,21 +7,17 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProjectFactory extends Factory
 {
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     protected $model = Project::class;
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public function definition(): array
     {
         return [
-            'nl_name'        => $this->faker->word,
-            'en_name'        => $this->faker->word,
-            'nl_description' => $this->faker->sentence,
-            'en_description' => $this->faker->sentence,
+            'nl_name'        => fake()->word(),
+            'en_name'        => fake()->word(),
+            'nl_description' => fake()->sentence(),
+            'en_description' => fake()->sentence(),
         ];
     }
 }

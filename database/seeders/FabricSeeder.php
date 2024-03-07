@@ -8,7 +8,8 @@ use Illuminate\Database\Seeder;
 
 class FabricSeeder extends Seeder
 {
-    public function run()
+    /** {@inerhitdoc} */
+    public function run(): void
     {
         if (app()->isProduction()) {
             return;

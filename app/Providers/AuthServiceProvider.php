@@ -2,27 +2,35 @@
 
 namespace App\Providers;
 
+use App\Models\Activity;
+use App\Models\Fabric;
+use App\Models\Permission;
+use App\Models\Project;
+use App\Models\Role;
 use App\Models\User;
+use App\Policies\ActivityPolicy;
+use App\Policies\FabricPolicy;
+use App\Policies\PermissionPolicy;
+use App\Policies\ProjectPolicy;
+use App\Policies\RolePolicy;
+use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
-    /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
+    /** {@inerhitdoc} */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        Activity::class   => ActivityPolicy::class,
+        Fabric::class     => FabricPolicy::class,
+        Permission::class => PermissionPolicy::class,
+        Project::class    => ProjectPolicy::class,
+        Role::class       => RolePolicy::class,
+        User::class       => UserPolicy::class,
     ];
 
-    /**
-     * Register any authentication / authorization services.
-     *
-     * @return void
-     */
-    public function boot()
+    /** {@inerhitdoc} */
+    public function boot(): void
     {
         $this->registerPolicies();
 

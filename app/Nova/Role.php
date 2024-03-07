@@ -10,12 +10,7 @@ use Laravel\Nova\Fields\MorphMany;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Vyuldashev\NovaPermission\Role as SpatieNovaRole;
 
-/**
- * Class Role
- *
- * @package App\Nova
- * @property-read RoleModel $resource
- */
+/** @property-read RoleModel $resource */
 class Role extends SpatieNovaRole
 {
     public static $model = RoleModel::class;
@@ -29,33 +24,13 @@ class Role extends SpatieNovaRole
         ],
     ];
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static $with = [
         'permissions',
         'users',
     ];
 
-    /**
-     * @inheritdoc
-     */
-    public function title(): string
-    {
-        return $this->resource->title;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function subtitle(): string
-    {
-        return __('Users') . " {$this->resource->users()->count()}  | " . __('Permissions') . " {$this->resource->permissions()->count()}";
-    }
-
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static function availableForNavigation(Request $request): bool
     {
         /** @var UserModel|null $user */
@@ -65,29 +40,39 @@ class Role extends SpatieNovaRole
             && $user->can('View roles');
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
+    public function title(): string
+    {
+        return $this->resource->title;
+    }
+
+    /** {@inheritdoc} */
+    public function subtitle(): string
+    {
+        return __('Users') . " {$this->resource->users()->count()}  | " . __('Permissions') . " {$this->resource->permissions()->count()}";
+    }
+
+    /** {@inheritdoc} */
     public function fields(Request $request): array
     {
-        return array_merge(parent::fields($request), [
+        return [
+            ...parent::fields($request),
             (new Tabs(__('Relations'), [
                 MorphMany::make(__('Activities'), 'activities', Activity::class),
             ]))
                 ->defaultSearch()
                 ->withToolbar(),
-        ]);
+        ];
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public function actions(Request $request): array
     {
-        return array_merge(parent::actions($request), [
+        return [
+            ...parent::actions($request),
             (new DownloadExcel)
                 ->withHeadings()
                 ->allFields(),
-        ]);
+        ];
     }
 }

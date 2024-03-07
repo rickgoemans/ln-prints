@@ -2,32 +2,21 @@
 
 namespace App\Support\Traits;
 
-/**
- * Trait HasTitles
- *
- * @package App\Support\Traits
- * @author Provide Software <software@provide.nl>
- */
+use Illuminate\Database\Eloquent\Casts\Attribute;
+
 trait HasTitles
 {
-    /* ACCESSORS & MUTATORS */
-    /**
-     * Return the title of the model
-     *
-     * @return string|null
-     */
-    public function getTitleAttribute(): ?string
+    protected function title(): Attribute
     {
-        return "#{$this->getKey()}";
+        return Attribute::make(
+            get: fn(): string => "#{$this->getKey()}",
+        );
     }
 
-    /**
-     * Return the subtitle of the model
-     *
-     * @return string|null
-     */
-    public function getSubtitleAttribute(): ?string
+    protected function subtitle(): Attribute
     {
-        return "#{$this->getKey()}";
+        return Attribute::make(
+            get: fn(): string => "#{$this->getKey()}",
+        );
     }
 }

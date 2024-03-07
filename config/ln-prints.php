@@ -31,7 +31,6 @@ return [
             'View backups tool',
             'View packages tool',
             'View permissions tool',
-            'View route viewer tool',
             'View telescope',
 
             'View users',
@@ -104,7 +103,6 @@ return [
             'nova-backups-tool'      => 'View backups tool',
             'nova-packages-tool'     => 'View packages tool',
             'nova-permissions-tool'  => 'View permissions tool',
-            'nova-route-viewer-tool' => 'View route viewer tool',
             'telescope'              => 'View telescope',
         ],
     ],

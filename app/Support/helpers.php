@@ -1,5 +1,6 @@
 <?php
 
+use Brick\Money\Exception\UnknownCurrencyException;
 use Brick\Money\Money;
 use Illuminate\Support\Facades\File as FileFacade;
 use Illuminate\Support\Facades\Route;
@@ -7,13 +8,7 @@ use Laravel\Nova\Fields\Country;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 if (!function_exists('crudPermissions')) {
-    /**
-     * Outputs all CRUD permissions based on a given permission name
-     *
-     * @param string $permissionName
-     * @param bool $hasSoftDelete default false. when true also "Restore" and "Force delete" permissions are created
-     * @return string[]
-     */
+    /** @return string[] */
     function crudPermissions(string $permissionName, bool $hasSoftDelete = false): array
     {
         $permissions = [
@@ -26,7 +21,12 @@ if (!function_exists('crudPermissions')) {
             "Restore {$permissionName}",
             "Force delete {$permissionName}",
         ];
-        return $hasSoftDelete ? array_merge($permissions, $softDeletePermissions) : $permissions;
+        return $hasSoftDelete
+            ? [
+                ...$permissions,
+                ...$softDeletePermissions
+            ]
+            : $permissions;
     }
 }
 
@@ -41,10 +41,6 @@ if (!function_exists('encodeImage')) {
 }
 
 if (!function_exists('encodeMedia')) {
-    /**
-     * @param \Spatie\MediaLibrary\MediaCollections\Models\Media $media
-     * @return string
-     */
     function encodeMedia(Media $media): string
     {
         if ($media->getDiskDriverName() !== 's3') {
@@ -57,15 +53,7 @@ if (!function_exists('encodeMedia')) {
 }
 
 if (!function_exists('currencyFormat')) {
-    /**
-     * Format a currency
-     *
-     * @param float $value
-     * @param int $decimals
-     * @param bool $withIcon
-     * @return string
-     * @throws \Brick\Money\Exception\UnknownCurrencyException
-     */
+    /** @throws UnknownCurrencyException */
     function currencyFormat(float $value, int $decimals = 2, bool $withIcon = true): string
     {
         if ($withIcon) {

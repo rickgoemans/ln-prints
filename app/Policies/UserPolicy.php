@@ -9,25 +9,12 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view any user.
-     *
-     * @param  User  $user
-     * @return mixed
-     */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         return $user->can('View users');
     }
 
-    /**
-     * Determine whether the user can view the user.
-     *
-     * @param  User|null  $user
-     * @param  User  $instance
-     * @return mixed
-     */
-    public function view(?User $user, User $instance)
+    public function view(?User $user, User $instance): bool
     {
         if ($user === null) {
             return false;
@@ -40,25 +27,12 @@ class UserPolicy
         return $user->can('View users');
     }
 
-    /**
-     * Determine whether the user can create users.
-     *
-     * @param  User  $user
-     * @return mixed
-     */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         return $user->can('Create users');
     }
 
-    /**
-     * Determine whether the user can update the user.
-     *
-     * @param  User  $user
-     * @param  User  $instance
-     * @return mixed
-     */
-    public function update(User $user, User $instance)
+    public function update(User $user, User $instance): bool
     {
         if ($user->id === $instance->id) {
             return true;
@@ -71,14 +45,7 @@ class UserPolicy
         return $user->can('Update users');
     }
 
-    /**
-     * Determine whether the user can delete the user.
-     *
-     * @param  User  $user
-     * @param  User  $instance
-     * @return mixed
-     */
-    public function delete(User $user, User $instance)
+    public function delete(User $user, User $instance): bool
     {
         if ($user->id === $instance->id) {
             return true;
@@ -91,26 +58,12 @@ class UserPolicy
         return $user->can('Delete users');
     }
 
-    /**
-     * Determine whether the user can restore the user.
-     *
-     * @param  User  $user
-     * @param  User  $instance
-     * @return mixed
-     */
-    public function restore(User $user, User $instance)
+    public function restore(User $user, User $instance): bool
     {
         return $user->can('Restore users');
     }
 
-    /**
-     * Determine whether the user can permanently delete the user.
-     *
-     * @param  User  $user
-     * @param  User  $instance
-     * @return mixed
-     */
-    public function forceDelete(User $user, User $instance)
+    public function forceDelete(User $user, User $instance): bool
     {
         return $user->can('Force delete users');
     }

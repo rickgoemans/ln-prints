@@ -9,13 +9,14 @@ use Illuminate\Database\Seeder;
 
 class RoleSeeder extends Seeder
 {
-    public function run()
+    /** {@inerhitdoc} */
+    public function run(): void
     {
-        foreach (RoleName::options() as $roleName) {
-            if (!Role::whereName($roleName)->count()) {
+        foreach (RoleName::cases() as $roleName) {
+            if (!Role::whereName($roleName->value)->count()) {
                 Role::factory()
                     ->create([
-                        'name' => $roleName,
+                        'name' => $roleName->value,
                     ]);
             }
         }

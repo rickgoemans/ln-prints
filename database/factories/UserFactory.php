@@ -8,23 +8,19 @@ use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     protected $model = User::class;
 
-    /**
-     * @inheritdoc
-     */
-    public function definition()
+    /** {@inheritdoc} */
+    public function definition(): array
     {
         return [
-            'name'              => $this->faker->name,
-            'email'             => $this->faker->unique()
+            'name'              => fake()->name(),
+            'email'             => fake()->unique()
                 ->safeEmail,
-            'email_verified_at' => $this->faker->optional()
+            'email_verified_at' => fake()->optional()
                 ->dateTime,
-            'password'          => $this->faker->password(8),
+            'password'          => fake()->password(8),
             'remember_token'    => Str::random(10),
         ];
     }

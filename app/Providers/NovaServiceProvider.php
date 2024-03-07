@@ -11,29 +11,33 @@ use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Laravel\Nova\Tool;
-use Sbine\RouteViewer\RouteViewer;
 use Spatie\BackupTool\BackupTool;
-use Strandafili\NovaInstalledPackages\Tool as PackagesTool;
 use Vyuldashev\NovaPermission\NovaPermissionTool;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
+    /** {@inerhitdoc} */
+    public function boot(): void
     {
         parent::boot();
     }
 
-    /**
-     * Register the Nova routes.
-     *
-     * @return void
-     */
-    protected function routes()
+    /** {@inheritdoc} */
+    public function tools(): array
+    {
+        return [
+            $this->backupTool(),
+        ];
+    }
+
+    /** {@inheritdoc} */
+    public function register()
+    {
+        //
+    }
+
+    /** {@inerhitdoc} */
+    protected function routes(): void
     {
         Nova::routes()
             ->withAuthenticationRoutes()
@@ -41,19 +45,15 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             ->register();
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function gate()
+    /** {@inheritdoc} */
+    protected function gate(): void
     {
         Gate::define('viewNova', function (?User $user) {
             return $user && $user->can(config('ln-prints.permissions.packages.nova'));
         });
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     protected function cards(): array
     {
         return [
@@ -61,34 +61,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     protected function dashboards(): array
     {
         return [
 
         ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function tools(): array
-    {
-        return [
-            $this->backupTool(),
-            $this->packagesTool(),
-            $this->routeViewerTool(),
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function register()
-    {
-        //
     }
 
     protected function backupTool(): Tool
@@ -102,16 +80,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             });
     }
 
-    protected function packagesTool(): Tool
-    {
-        return (new PackagesTool())
-            ->canSee(function (Request $request) {
-                /** @var User|null $user */
-                $user = $request->user();
-
-                return $user && $user->can(config('ln-prints.permissions.packages.nova-packages-tool'));
-            });
-    }
 
     protected function permissionsTool(): Tool
     {
@@ -119,16 +87,5 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             ->roleResource(Permission::class)
             ->permissionResource(Role::class)
             ->canSeeWhen(config('ln-prints.permissions.packages.nova-permissions-tool'));
-    }
-
-    protected function routeViewerTool(): Tool
-    {
-        return (new RouteViewer())
-            ->canSee(function (Request $request) {
-                /** @var User|null $user */
-                $user = $request->user();
-
-                return $user && $user->can(config('ln-prints.permissions.packages.nova-route-viewer-tool'));
-            });
     }
 }

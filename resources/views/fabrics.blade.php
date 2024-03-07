@@ -1,3 +1,4 @@
+@php use App\Support\Enums\MediaConversions; @endphp
 @extends('layouts.pages')
 
 @section('content')
@@ -21,7 +22,7 @@
                                 <div class="carousel-inner lightGallery" id="lightGallery">
                                     @foreach($fabric->getMedia('images') as $media)
                                         <a class="carousel-item {{ $loop->first ? 'active' : '' }}" href="{{ $media->getUrl() }}">
-                                            <img src="{{ $media->getUrl(\App\Support\Enums\MediaConversions::THUMBNAIL) }}" class="d-block w-100" alt="{{ $fabric->name }} photo {{ $loop->iteration }}" loading="lazy">
+                                            <img src="{{ $media->getUrl(MediaConversions::Thumbnail->value) }}" class="d-block w-100" alt="{{ $fabric->name }} photo {{ $loop->iteration }}" loading="lazy">
                                         </a>
                                     @endforeach
                                 </div>

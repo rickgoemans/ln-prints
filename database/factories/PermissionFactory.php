@@ -7,19 +7,15 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PermissionFactory extends Factory
 {
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     protected $model = Permission::class;
 
-    /**
-     * @inheritdoc
-     */
-    public function definition()
+    /** {@inheritdoc} */
+    public function definition(): array
     {
         return [
-            'name'       => $this->faker->word,
-            'guard_name' => $this->faker->randomElement(['web',]),
+            'name'       => fake()->word(),
+            'guard_name' => fake()->randomElement(['web',]),
         ];
     }
 }

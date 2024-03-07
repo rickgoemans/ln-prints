@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class BaseSeeder extends Seeder
 {
+    /** {@inerhitdoc} */
     public function run(): void
     {
         $this->call(PermissionSeeder::class);

@@ -10,25 +10,12 @@ class FabricPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view any fabrics.
-     *
-     * @param  User  $user
-     * @return mixed
-     */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         return $user->can('View fabrics');
     }
 
-    /**
-     * Determine whether the user can view the fabric.
-     *
-     * @param  User|null  $user
-     * @param  Fabric  $fabric
-     * @return mixed
-     */
-    public function view(?User $user, Fabric $fabric)
+    public function view(?User $user, Fabric $fabric): bool
     {
         if ($user === null) {
             return false;
@@ -37,61 +24,27 @@ class FabricPolicy
         return $user->can('View fabrics');
     }
 
-    /**
-     * Determine whether the user can create fabrics.
-     *
-     * @param  User  $user
-     * @return mixed
-     */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         return $user->can('Create fabrics');
     }
 
-    /**
-     * Determine whether the user can update the fabric.
-     *
-     * @param  User  $user
-     * @param  Fabric  $fabric
-     * @return mixed
-     */
-    public function update(User $user, Fabric $fabric)
+    public function update(User $user, Fabric $fabric): bool
     {
         return $user->can('Update fabrics');
     }
 
-    /**
-     * Determine whether the user can delete the fabric.
-     *
-     * @param  User  $user
-     * @param  Fabric  $fabric
-     * @return mixed
-     */
-    public function delete(User $user, Fabric $fabric)
+    public function delete(User $user, Fabric $fabric): bool
     {
         return $user->can('Delete fabrics');
     }
 
-    /**
-     * Determine whether the user can restore the fabric.
-     *
-     * @param  User  $user
-     * @param  Fabric  $fabric
-     * @return mixed
-     */
-    public function restore(User $user, Fabric $fabric)
+    public function restore(User $user, Fabric $fabric): bool
     {
         return $user->can('Restore fabrics');
     }
 
-    /**
-     * Determine whether the user can permanently delete the fabric.
-     *
-     * @param  User  $user
-     * @param  Fabric  $fabric
-     * @return mixed
-     */
-    public function forceDelete(User $user, Fabric $fabric)
+    public function forceDelete(User $user, Fabric $fabric): bool
     {
         return $user->can('Force delete fabrics');
     }

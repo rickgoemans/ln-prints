@@ -9,6 +9,7 @@ use App\Support\Traits\LogsActivity;
 use App\Support\Traits\ModelName;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -17,10 +18,6 @@ use Illuminate\Support\Str;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Permission\Traits\HasRoles;
 
-/**
- * @package App\Models
- * @author Rick Goemans <rickgoemans@gmail.com>
- */
 class User extends Authenticatable implements MustVerifyEmailContract
 {
     use CausesActivity;
@@ -32,74 +29,53 @@ class User extends Authenticatable implements MustVerifyEmailContract
     use MustVerifyEmail;
     use Notifiable;
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     protected $fillable = [
         'name',
         'email',
         'password',
     ];
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * @inheritdoc
-     */
-    protected $dates = [
-        'email_verified_at',
+    /** {@inheritdoc} */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * @inheritdoc
-     */
-    protected static function boot()
+    /** {@inheritdoc} */
+    protected static function boot(): void
     {
         parent::boot();
 
         self::observe(UserObserver::class);
     }
 
-    /* ACCESSORS & MUTATORS */
-    public function getTitleAttribute(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = Str::startsWith($value, '$2y$') ? $value : Hash::make($value);
-    }
-
-    /* RELATIONS */
     public function isSuperAdmin(): bool
     {
         return $this->roles()
-                ->where('name', RoleName::SUPER_ADMINISTRATORS)
+                ->where('name', RoleName::SuperAdministrators->value)
                 ->count() == 1;
     }
 
     public function isAdmin(): bool
     {
         return $this->roles()
-                ->where('name', RoleName::ADMINISTRATORS)
+                ->where('name', RoleName::Administrators->value)
                 ->count() == 1;
     }
 
     public function isMember(): bool
     {
         return $this->roles()
-                ->where('name', RoleName::MEMBERS)
+                ->where('name', RoleName::Members->value)
                 ->count() == 1;
     }
 
-    /* IMPERSONATE */
     public function canImpersonate(): bool
     {
         return $this->isSuperAdmin();
@@ -108,5 +84,21 @@ class User extends Authenticatable implements MustVerifyEmailContract
     public function canBeImpersonated(): bool
     {
         return !$this->isSuperAdmin();
+    }
+
+    protected function title(): Attribute
+    {
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes): string => $attributes['name'],
+        );
+    }
+
+    protected function password(): Attribute
+    {
+        return Attribute::make(
+            set: fn($value): string => Str::startsWith($value, '$2y$')
+                ? $value
+                : Hash::make($value),
+        );
     }
 }

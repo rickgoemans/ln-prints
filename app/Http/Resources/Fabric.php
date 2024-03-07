@@ -4,20 +4,14 @@ namespace App\Http\Resources;
 
 use App\Models\Fabric as FabricModel;
 
-/**
- * Class Fabric
- *
- * @package App\Http\Resources
- * @property-read FabricModel $resource
- */
+/** @property-read FabricModel $resource */
 class Fabric extends JsonResource
 {
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public function toArray($request): array
     {
-        return array_merge($this->baseToArray(FabricModel::class), [
+        return [
+            ...$this->baseToArray(FabricModel::class),
             'article_number'             => $this->resource->article_number,
             'name'                       => $this->resource->name,
             'composition'                => $this->resource->composition,
@@ -35,6 +29,6 @@ class Fabric extends JsonResource
             'uv_protection'              => $this->resource->uv_protection,
             'recycle_yarn'               => $this->resource->recycled_yarn,
             'active'                     => $this->resource->active,
-        ]);
+        ];
     }
 }

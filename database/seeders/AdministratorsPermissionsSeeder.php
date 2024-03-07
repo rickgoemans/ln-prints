@@ -11,18 +11,19 @@ use Spatie\Permission\PermissionRegistrar;
 
 class AdministratorsPermissionsSeeder extends Seeder
 {
-    public function run()
+    /** {@inerhitdoc} */
+    public function run(): void
     {
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         /** @var Role $role */
-        $role = Role::where('name', RoleName::ADMINISTRATORS)
+        $role = Role::where('name', RoleName::Administrators)
             ->first();
 
         if ($role) {
             /** @var array $permissionNames */
-            $permissionNames = config('ln-prints.permissions.roles.' . RoleName::ADMINISTRATORS);
+            $permissionNames = config('ln-prints.permissions.roles.' . RoleName::Administrators->value);
 
             /** @var Collection $permissions */
             $permissions = Permission::whereIn('name', $permissionNames)

@@ -6,9 +6,7 @@ use Laravel\Nova\Fields\DateTime as NovaDateTime;
 
 class DateTime extends NovaDateTime
 {
-    /**
-     * @inerhitdoc
-     */
+    /** {@inerhitdoc} */
     public function __construct($name, $attribute = null, $resolveCallback = null)
     {
         parent::__construct($name, $attribute, $resolveCallback);

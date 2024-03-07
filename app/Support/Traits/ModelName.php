@@ -4,12 +4,6 @@ namespace App\Support\Traits;
 
 use Illuminate\Support\Str;
 
-/**
- * Trait ModelName
- *
- * @package App\Support\Traits
- * @author Rick Goemans <rickgoemans@gmail.com>
- */
 trait ModelName
 {
     /**

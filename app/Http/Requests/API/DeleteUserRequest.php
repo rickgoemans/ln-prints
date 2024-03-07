@@ -5,12 +5,6 @@ namespace App\Http\Requests\API;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * Class DeleteUserRequest
- *
- * @package App\Http\Requests\API
- * @property-read User $user
- */
 class DeleteUserRequest extends FormRequest
 {
 

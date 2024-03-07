@@ -6,9 +6,7 @@ use Illuminate\Foundation\Http\Middleware\TrimStrings as Middleware;
 
 class TrimStrings extends Middleware
 {
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     protected $except = [
         'current_password',
         'password',

@@ -7,12 +7,6 @@ use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
-/**
- * Class FabricsController
- *
- * @package App\Http\Controllers
- * @author Rick Goemans <rickgoemans@gmail.com>
- */
 class FabricsController extends Controller
 {
     use SEOToolsTrait;

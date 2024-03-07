@@ -6,9 +6,7 @@ use Laravel\Nova\Fields\Date as NovaDate;
 
 class Date extends NovaDate
 {
-    /**
-     * @inerhitdoc
-     */
+    /** {@inerhitdoc} */
     public function __construct($name, $attribute = null, $resolveCallback = null)
     {
         parent::__construct($name, $attribute, $resolveCallback);

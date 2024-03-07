@@ -4,20 +4,14 @@ namespace App\Http\Resources;
 
 use App\Models\Activity as ActivityModel;
 
-/**
- * Class Activity
- *
- * @package App\Http\Resources
- * @property-read ActivityModel $resource
- */
+/** @property-read ActivityModel $resource */
 class Activity extends JsonResource
 {
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public function toArray($request): array
     {
-        return array_merge($this->baseToArray(ActivityModel::class), [
+        return [
+            ...$this->baseToArray(ActivityModel::class),
             'log_name'     => $this->resource->log_name,
             'description'  => $this->resource->description,
             'subject_id'   => $this->resource->subject_id,
@@ -25,6 +19,6 @@ class Activity extends JsonResource
             'causer_id'    => $this->resource->causer_id,
             'causer_type'  => $this->resource->causer_type,
             'properties'   => $this->resource->properties,
-        ]);
+        ];
     }
 }

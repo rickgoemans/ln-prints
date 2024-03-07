@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Mail;
 
 class DatabaseSeeder extends Seeder
 {
-    public function run()
+    /** {@inerhitdoc} */
+    public function run(): void
     {
         Mail::fake(); // Disable mails during seeding
         activity()->disableLogging(); // Disable logging during seeding

@@ -2,7 +2,7 @@
 
 namespace App\Support\Enums;
 
-class MediaConversions
+enum MediaConversions: string
 {
-    const THUMBNAIL = 'thumbnail';
+    case Thumbnail = 'thumbnail';
 }

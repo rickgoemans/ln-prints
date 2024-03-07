@@ -14,48 +14,33 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\Text;
 
-/**
- * Class Project
- *
- * @package App\Nova
- * @property-read ProjectModel $resource
- */
+/** @property-read ProjectModel $resource */
 class Project extends Resource
 {
     public static $model = ProjectModel::class;
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static $title = 'name';
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static $search = [
         'id',
         'nl_name',
         'en_name',
     ];
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static $with = [
         'media',
     ];
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static function group(): string
     {
         return __('LN Prints');
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public function fields(Request $request): array
     {
         return [
@@ -84,7 +69,7 @@ class Project extends Resource
                 ->stacked()
                 ->rules('required'),
 
-            Images::make(__('Images'), MediaCollections::IMAGES)
+            Images::make(__('Images'), MediaCollections::Images->value)
                 ->singleImageRules([
                     'image',
                     Rule::dimensions()
@@ -93,7 +78,7 @@ class Project extends Resource
                         ->maxWidth(3840)
                         ->maxHeight(2160),
                 ])
-                ->conversionOnIndexView(MediaConversions::THUMBNAIL)
+                ->conversionOnIndexView(MediaConversions::Thumbnail->value)
                 ->fullSize()
                 ->rules('required'),
             (new Tabs(__('Relations'), [

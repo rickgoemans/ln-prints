@@ -10,25 +10,12 @@ class ActivityPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view any activity.
-     *
-     * @param  User  $user
-     * @return mixed
-     */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         return $user->can('View activities');
     }
 
-    /**
-     * Determine whether the user can view the activity.
-     *
-     * @param  User|null  $user
-     * @param  Activity  $activity
-     * @return mixed
-     */
-    public function view(?User $user, Activity $activity)
+    public function view(?User $user, Activity $activity): bool
     {
         if ($user === null) {
             return false;
@@ -37,61 +24,27 @@ class ActivityPolicy
         return $user->can('View activities');
     }
 
-    /**
-     * Determine whether the user can create activities.
-     *
-     * @param  User  $user
-     * @return mixed
-     */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         return $user->can('Create activities');
     }
 
-    /**
-     * Determine whether the user can update the activity.
-     *
-     * @param  User  $user
-     * @param  Activity  $activity
-     * @return mixed
-     */
-    public function update(User $user, Activity $activity)
+    public function update(User $user, Activity $activity): bool
     {
         return $user->can('Update activities');
     }
 
-    /**
-     * Determine whether the user can delete the activity.
-     *
-     * @param  User  $user
-     * @param  Activity  $activity
-     * @return mixed
-     */
-    public function delete(User $user, Activity $activity)
+    public function delete(User $user, Activity $activity): bool
     {
         return $user->can('Delete activities');
     }
 
-    /**
-     * Determine whether the user can restore the activity.
-     *
-     * @param  User  $user
-     * @param  Activity  $activity
-     * @return mixed
-     */
-    public function restore(User $user, Activity $activity)
+    public function restore(User $user, Activity $activity): bool
     {
         return $user->can('Restore activities');
     }
 
-    /**
-     * Determine whether the user can permanently delete the activity.
-     *
-     * @param  User  $user
-     * @param  Activity  $activity
-     * @return mixed
-     */
-    public function forceDelete(User $user, Activity $activity)
+    public function forceDelete(User $user, Activity $activity): bool
     {
         return $user->can('Force delete activities');
     }

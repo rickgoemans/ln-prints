@@ -10,26 +10,17 @@ use Laravel\Nova\Fields\MorphMany;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Vyuldashev\NovaPermission\Permission as SpatieNovaPermission;
 
-/**
- * Class Permission
- *
- * @package App\Nova
- * @property-read PermissionModel $resource
- */
+/** @property-read PermissionModel $resource */
 class Permission extends SpatieNovaPermission
 {
     public static $model = PermissionModel::class;
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static $with = [
         'roles',
     ];
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static function availableForNavigation(Request $request): bool
     {
         /** @var UserModel|null $user */
@@ -39,29 +30,27 @@ class Permission extends SpatieNovaPermission
             && $user->can('View permissions');
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public function fields(Request $request): array
     {
-        return array_merge(parent::fields($request), [
+        return [
+            ...parent::fields($request),
             (new Tabs(__('Relations'), [
                 MorphMany::make(__('Activities'), 'activities', Activity::class),
             ]))
                 ->defaultSearch()
                 ->withToolbar(),
-        ]);
+        ];
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public function actions(Request $request): array
     {
-        return array_merge(parent::actions($request), [
+        return [
+            ...parent::actions($request),
             (new DownloadExcel)
                 ->withHeadings()
                 ->allFields(),
-        ]);
+        ];
     }
 }

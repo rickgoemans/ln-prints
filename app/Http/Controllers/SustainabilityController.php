@@ -6,11 +6,6 @@ use Artesaos\SEOTools\Traits\SEOTools as SEOToolsTrait;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
-/**
- * Class SustainabilityController
- * @package App\Http\Controllers
- * @author Rick Goemans <rickgoemans@gmail.com>
- */
 class SustainabilityController extends Controller
 {
     use SEOToolsTrait;

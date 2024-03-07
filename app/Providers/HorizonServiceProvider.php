@@ -8,12 +8,8 @@ use Laravel\Horizon\HorizonApplicationServiceProvider;
 
 class HorizonServiceProvider extends HorizonApplicationServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
+    /** {@inerhitdoc} */
+    public function boot(): void
     {
         parent::boot();
 
@@ -24,14 +20,8 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
         // Horizon::night();
     }
 
-    /**
-     * Register the Horizon gate.
-     *
-     * This gate determines who can access Horizon in non-local environments.
-     *
-     * @return void
-     */
-    protected function gate()
+    /** {@inerhitdoc} */
+    protected function gate(): void
     {
         Gate::define('viewHorizon', function (?User $user) {
             return $user && $user->can(config('ln-prints.permissions.packages.horizon'));

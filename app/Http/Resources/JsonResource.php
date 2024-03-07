@@ -8,12 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Resources\Json\JsonResource as BaseJsonResource;
 use Illuminate\Support\Carbon;
 
-/**
- * Class JsonResource
- *
- * @package App\Http\Resources
- * @property-read Model $resource
- */
+/** @property-read Model $resource */
 abstract class JsonResource extends BaseJsonResource
 {
     /**
@@ -29,23 +24,26 @@ abstract class JsonResource extends BaseJsonResource
         ];
 
         if ($this->resource->usesTimestamps()) {
-            $data = array_merge($data, [
+            $data = [
+                ...$data,
                 'created_at' => $this->resource->created_at->toIso8601String(),
                 'updated_at' => $this->resource->updated_at->toIso8601String(),
-            ]);
+            ];
         }
 
         $traits = class_uses($modelClass);
         if (in_array(SoftDeletes::class, array_keys($traits))) {
-            $data = array_merge($data, [
-                'deleted_at' => optional($this->resource->deleted_at, fn(Carbon $deletedAt) => $deletedAt->toIso8601String()),
-            ]);
+            $data = [
+                ...$data,
+                'deleted_at' => optional($this->resource->deleted_at, fn(Carbon $deletedAt): string => $deletedAt->toIso8601String()),
+            ];
         }
 
         if (in_array(LogsActivity::class, array_keys($traits))) {
-            $data = array_merge($data, [
+            $data = [
+                ...$data,
                 'activities' => Activity::collection($this->whenLoaded('activities')),
-            ]);
+            ];
         }
 
         return $data;

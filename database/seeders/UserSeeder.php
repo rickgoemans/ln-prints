@@ -11,28 +11,24 @@ use Illuminate\Support\Carbon;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    /** {@inerhitdoc} */
+    public function run(): void
     {
         $usersData = [
             [
                 'name'  => 'Super Administrator',
                 'email' => 'admin@admin.com',
-                'role'  => RoleName::SUPER_ADMINISTRATORS,
+                'role'  => RoleName::SuperAdministrators,
             ],
             [
                 'name'  => 'Rick Goemans',
                 'email' => 'rickgoemans@gmail.com',
-                'role'  => RoleName::SUPER_ADMINISTRATORS,
+                'role'  => RoleName::SuperAdministrators,
             ],
             [
                 'name'  => 'Ellen Sesink',
                 'email' => 'info@ln-prints.nl',
-                'role'  => RoleName::ADMINISTRATORS,
+                'role'  => RoleName::Administrators,
             ],
         ];
 
@@ -42,14 +38,14 @@ class UserSeeder extends Seeder
                 ->create([
                     'name'              => $userData['name'],
                     'email'             => $userData['email'],
-                    'password'          => in_array(app()->environment(), ['local', 'testing'])
-                        ? 'admin'
-                        : 'y!0r7z@r9!e@V9RuSpaG',
+                    'password'          => app()->isProduction()
+                        ? fake()->password(8)
+                        : 'admin',
                     'email_verified_at' => Carbon::now(),
                 ]);
 
             /** @var Role $role */
-            $role = Role::where('name', $userData['role'])
+            $role = Role::where('name', $userData['role']->value)
                 ->first();
 
             if ($role) {

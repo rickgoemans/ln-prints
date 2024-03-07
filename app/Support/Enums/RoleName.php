@@ -2,13 +2,9 @@
 
 namespace App\Support\Enums;
 
-use App\Support\Traits\SelectableEnum;
-
-class RoleName
+enum RoleName: string
 {
-    use SelectableEnum;
-
-    const SUPER_ADMINISTRATORS = 'Super Administrators';
-    const ADMINISTRATORS = 'Administrators';
-    const MEMBERS = 'Members';
+    case SuperAdministrators = 'Super Administrators';
+    case Administrators = 'Administrators';
+    case Members = 'Members';
 }

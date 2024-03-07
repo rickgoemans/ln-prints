@@ -7,34 +7,30 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FabricFactory extends Factory
 {
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     protected $model = Fabric::class;
 
-    /**
-     * @inheritdoc
-     */
-    public function definition()
+    /** {@inheritdoc} */
+    public function definition(): array
     {
         return [
-            'article_number'             => $this->faker->uuid,
-            'name'                       => $this->faker->word,
-            'composition'                => $this->faker->sentence,
-            'usable_width'               => $this->faker->randomNumber(),
-            'weight'                     => $this->faker->randomNumber(),
-            'nl_description'             => $this->faker->sentence,
-            'en_description'             => $this->faker->sentence,
-            'two_way_stretch'            => $this->faker->boolean,
-            'pilling_resistant'          => $this->faker->boolean,
-            'wrinkle_free_and_easy_care' => $this->faker->boolean,
-            'quick_dry'                  => $this->faker->boolean,
-            'breathable'                 => $this->faker->boolean,
-            'moisture_management'        => $this->faker->boolean,
-            'muscle_control'             => $this->faker->boolean,
-            'uv_protection'              => $this->faker->boolean,
-            'recycled_yarn'              => $this->faker->boolean,
-            'active'                     => $this->faker->boolean,
+            'article_number'             => fake()->uuid(),
+            'name'                       => fake()->word(),
+            'composition'                => fake()->sentence(),
+            'usable_width'               => fake()->randomNumber(),
+            'weight'                     => fake()->randomNumber(),
+            'nl_description'             => fake()->sentence(),
+            'en_description'             => fake()->sentence(),
+            'two_way_stretch'            => fake()->boolean(),
+            'pilling_resistant'          => fake()->boolean(),
+            'wrinkle_free_and_easy_care' => fake()->boolean(),
+            'quick_dry'                  => fake()->boolean(),
+            'breathable'                 => fake()->boolean(),
+            'moisture_management'        => fake()->boolean(),
+            'muscle_control'             => fake()->boolean(),
+            'uv_protection'              => fake()->boolean(),
+            'recycled_yarn'              => fake()->boolean(),
+            'active'                     => fake()->boolean(),
         ];
     }
 }

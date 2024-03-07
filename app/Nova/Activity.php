@@ -11,24 +11,15 @@ use Laravel\Nova\Fields\KeyValue;
 use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Text;
 
-/**
- * Class Activity
- *
- * @package App\Nova
- * @property-read ActivityModel $resource
- */
+/** @property-read ActivityModel $resource */
 class Activity extends Resource
 {
     public static $model = ActivityModel::class;
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static $displayInNavigation = false;
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public static $search = [
         'id',
         'log_name',
@@ -48,9 +39,7 @@ class Activity extends Resource
 //        return $this->resource->description;
 //    }
 
-    /**
-     * @inheritdoc
-     */
+    /** {@inheritdoc} */
     public function fields(Request $request): array
     {
         return [
