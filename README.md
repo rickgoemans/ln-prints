@@ -78,7 +78,7 @@ FFPROBE_PATH="/usr/bin/ffprobe"
 
 # 2.0 Laravel Nova
 
-This project uses Laravel Nova for managing resources. Navigate to `/nova` to enter the Laravel Nova panel.
+This project uses Laravel Nova for managing resources. Navigate to `/admin` to enter the Laravel Nova panel.
 
 > **NOTE**: The path can be configured in the .env file with `NOVA_PATH=`
 
@@ -89,7 +89,7 @@ panel.
 
 > **NOTE**: The path can be configured in the .env file with `TELESCOPE_PATH=`
 
-> **NOTE**: Nova should be disabled on production to increase performance by configuring `TELESCOPE_ENABLED=false` in the .env file
+> **NOTE**: Telescope should be disabled on production to increase performance by configuring `TELESCOPE_ENABLED=false` in the .env file
 
 # 4.0 Laravel Horizon
 
@@ -99,13 +99,10 @@ This project uses Laravel Horizon to manage queues. Navigate to `/horizon` to en
 
 > **NOTE**: Laravel Horizon uses redis so make sure you've configured redis in `config/queue.php`!
 
-> **NOTE**: If you are running Laravel Homestead, it's useful to configure Supervisor to monitor (and therefore
-> automatically restart) the horizon process. [Read more](https://laravel.com/docs/master/horizon#deploying-horizon).
-
 # 5.0 Tests
 
 This project includes some tests, execute the following command in the terminal to start them:
 
 ```bash
-sail artisan test
+php artisan test
 ```
