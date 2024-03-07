@@ -3,9 +3,9 @@
 
 # Environment
 .env
-.env.backup
-.env.testing
-.env.production
+.env.*
+!.env.example
+!.env.testing.example
 
 # Dependency managers
 .npmrc
@@ -15,17 +15,17 @@ yarn-error.log
 /vendor
 
 # IDEA
+/.fleet
 /.idea
+/.vscode
+
 
 # Testing
 .phpunit.result.cache
 
-# Vagrant
-/.vagrant
-VagrantFile
-
 # Public files
 /public/hot
+/public/build
 /public/storage
 
 # Storage
@@ -34,13 +34,6 @@ VagrantFile
 
 # Auth
 auth.json
-
-# Homestead
-Homestead.json
-Homestead.yaml
-
-# Vapor
-.vapor/
 
 # IDE helper
 _ide_helper.php
